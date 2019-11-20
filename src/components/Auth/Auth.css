@@ -1,0 +1,11 @@
+#formToggle:hover {
+    text-decoration: underline;
+}
+
+#subButton:hover {
+    background-color: lightgray;
+}
+
+#centered {
+    text-align: center;
+}
