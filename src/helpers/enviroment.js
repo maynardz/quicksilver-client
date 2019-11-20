@@ -9,7 +9,7 @@ switch (window.location.hostname) {
     // this is the deployed react application
     case 'zsm-quicksilver-client.herokuapp.com':
         // this is the full url of your deployed API
-        APIURL = 'https://zsm-quicksilver-client.herokuapp.com'
+        APIURL = 'https://zsm-quicksilver-server.herokuapp.com'
 }
 
 export default APIURL;
