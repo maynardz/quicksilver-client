@@ -15,6 +15,8 @@ import Login from './Login/Login';
 
 import { Animated } from "react-animated-css";
 
+import APIURL from '../../helpers/enviroment';
+
 const useStyles = makeStyles({
     card: {
       maxWidth: 600,
@@ -76,7 +78,7 @@ const Auth = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const url = login ? `http://localhost:3000/auth/login` : `http://localhost:3000/auth/signup`;
+        const url = login ? `${APIURL}/auth/login` : `${APIURL}/auth/signup`;
 
         const bodyObj = login ? {
             user: {
