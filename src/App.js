@@ -25,13 +25,13 @@ function App() {
     setSessionToken(undefined)
   }
 
-  const viewConductor = () => {
-    return sessionToken !== undefined ? <Splash clearToken={clearToken} /> : <Auth updateToken={updateToken}/>
+  const viewToggle = () => {
+    return sessionToken !== undefined ? <Splash clearToken={clearToken} sessionToken={sessionToken} /> : <Auth updateToken={updateToken}/>
   }
 
   return (
     <div className="App">
-      {viewConductor()}
+      {viewToggle()}
     </div>
   );
 }

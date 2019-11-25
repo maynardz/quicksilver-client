@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './Auth.css';
+import quicksilver_logo_2 from '../../assets/quicksilver_logo_2.png';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,12 +9,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import quicksilver_logo_2 from '../../assets/quicksilver_logo_2.png';
+import { Animated } from "react-animated-css";
 
 import Signup from './Signup/Signup';
 import Login from './Login/Login';
-
-import { Animated } from "react-animated-css";
 
 import APIURL from '../../helpers/enviroment';
 
@@ -34,7 +33,7 @@ const useStyles = makeStyles({
         left: 0,
         height: '100%',
         width: '100%',
-        background: 'rgb(255, 255, 255)',
+        // background: 'rgb(255, 255, 255)',
         background: 'linear-gradient(245deg, rgba(255,255,255,1) 0%, rgba(209,209,209,1) 100%)'
     },
     middle: {
@@ -74,6 +73,9 @@ const Auth = (props) => {
 
     const formToggle = () => {
         setLogin(!login);
+
+        setUsername('');
+        setPassword('');
     }
 
     const handleSubmit = (e) => {
@@ -109,10 +111,10 @@ const Auth = (props) => {
             <div className={classes.middle}>
                 <div className={classes.inner}>
                     <form onSubmit={handleSubmit}>
-                        <Animated animationIn='zoomInDown' animationInDuration='2800'>
+                        <Animated animationIn='zoomInDown' animationInDuration={2800}>
                             <Card className={classes.card}>
                                 <CardContent>
-                                    <img className={classes.logo} src={quicksilver_logo_2} />
+                                    <img className={classes.logo} src={quicksilver_logo_2} alt="quicksilver logo" />
                                 </CardContent>
                                 {
                                     login ? <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword}/> : <Signup username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
@@ -122,7 +124,7 @@ const Auth = (props) => {
                                 </CardActions>
                                 <Typography>
                                     {
-                                        login ? <a><p id="formToggle" onClick={formToggle} className={classes.pStyles}>Need to signup?</p></a> : <a><p id="formToggle" onClick={formToggle} className={classes.pStyles}>Back to login</p></a>
+                                        login ? <p id="formToggle" onClick={formToggle} className={classes.pStyles}>Need to signup?</p> : <p id="formToggle" onClick={formToggle} className={classes.pStyles}>Back to login</p>
                                     }
                                 </Typography>
                             </Card>
