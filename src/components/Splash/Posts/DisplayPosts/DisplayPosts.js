@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
     root: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        marginTop: theme.spacing(1)
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1)
     },
     postedBy: {
         fontSize: '10px',
@@ -21,11 +22,6 @@ const useStyles = makeStyles(theme => ({
         fontSize: '20px',
         marginLeft: '.5em'
     },
-    // spacer: {
-    //     display: 'flex',
-    //     justifyContent: 'end',
-    //     marginTop: '-1.2em',
-    // },
 }));
 
 const DisplayPosts = (props) => {
@@ -33,37 +29,24 @@ const DisplayPosts = (props) => {
 
     const [displayPost, setDisplayPost] = useState(false);
     const [grabPost, setGrabPost] = useState();
-    console.log(displayPost);
 
-    // const upvote = () => {
-    //     fetch(`http://localhost:3000/posts/post/${}`, {
-    //         method: 'PUT',
-    //         body: JSON.stringify(),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': props.token
-    //         }
-
-    //     })
-    //     .then(res => res.json())
-    //     .then(json => console.log(json))
-    //     .catch(err => console.log(err))
-    // }
+    useEffect(() => {
+        props.getPosts();
+    }, []);
 
     const postToggle = () => {
-        return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} /> : (
+        return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} /> : (
             props.posts.map((post, key) => {
-                // console.log(post)
                 return (
                     <Animated animationIn='slideInLeft' key={key}>
                         <div onClick={() => setDisplayPost(true)} >
                             <Paper onClick={() => setGrabPost(post)} className={classes.root}>
                                 <Typography className={classes.content} component="p">
-                                        {post.title}
-                                    </Typography>
-                                    <Typography className={classes.postedBy} component="p">
-                                        {`Posted by ${post.user_username} at`}
-                                    </Typography>
+                                    {post.title}
+                                </Typography>
+                                <Typography className={classes.postedBy} component="p">
+                                    {`Posted by ${post.user_username}`}
+                                </Typography>
                             </Paper>
                         </div>
                     </Animated>

@@ -1,17 +1,38 @@
 import React, {useState, useEffect} from 'react';
 import './Posts.css';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+import { Animated } from "react-animated-css";
+
 import DisplayPosts from './DisplayPosts/DisplayPosts';
 import CreatePost from './CreatePost/CreatePost';
 import APIURL from '../../../helpers/enviroment';
 
+const useStyles = makeStyles(theme => ({
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginTop: theme.spacing(1),
+      width: 400,
+      textIndent: '5px',
+      borderColor: '#333',
+      borderRadius: '5px',
+      background: 'rgba(255, 255, 255, 0.5)',
+      color: '#333',
+      fontSize: '16px',
+      height: '50px'
+    },
+}));
+
 const Posts = (props) => {
+    const classes = useStyles();
 
     const [posts, setPosts] = useState([]);
+    const [createPostToggle, setCreatePostToggle] = useState(false);
 
-    useEffect(() => {
-        getPosts();
-    }, [])
+    // useEffect(() => {
+    //     getPosts();
+    // }, []);
 
     const getPosts = () => {
         const url = `${APIURL}/posts/post`
@@ -28,8 +49,16 @@ const Posts = (props) => {
 
     return(
         <div>
-            <CreatePost sessionToken={props.sessionToken} getPosts={getPosts} />
-            <DisplayPosts posts={posts} />
+            {
+                createPostToggle ? <CreatePost sessionToken={props.sessionToken} getPosts={getPosts} setCreatePostToggle={setCreatePostToggle} /> : (
+                    <Animated animationIn='slideInLeft'>
+                        <input id="postInput" className={classes.textField} onClick={() => setCreatePostToggle(true)} placeholder="Create Post" />
+                    </Animated>
+                )
+            }
+            {
+                createPostToggle ? null : <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} />
+            }
         </div>
     )
 }

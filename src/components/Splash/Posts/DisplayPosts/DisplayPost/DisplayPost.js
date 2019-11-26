@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import './DisplayPost.css';
 
 import { makeStyles } from '@material-ui/core/styles';
 // import Paper from '@material-ui/core/Paper';
@@ -7,6 +8,9 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+
+import UpvoteIcon from '@material-ui/icons/ExpandLessOutlined';
+import DownvoteIcon from '@material-ui/icons/ExpandMoreOutlined';
 
 import { Animated } from "react-animated-css";
 
@@ -23,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         background: '#333'
       },
     postedBy: {
-        marginTop: '1.6em',
+        marginTop: theme.spacing(2.1),
         marginLeft: '1.8em',
         fontSize: '10px',
     },
@@ -33,13 +37,53 @@ const useStyles = makeStyles(theme => ({
     },
     spacer: {
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginTop: theme.spacing(2)
+    },
+    button: {
+        color: 'white'
+    },
+    icons: {
+        marginTop: theme.spacing(1),
+        marginLeft: theme.spacing(1)
     }
 }));
 
 const DisplayPost = (props) => {
     const classes = useStyles();
-    console.log(props)
+
+    const [getPostId, setGetPostId] = useState('');
+    const [getUpvoteCount, setGetUpvoteCount] = useState(0);
+
+    useEffect(() => {
+        let postId = props.grabPost.id;
+        setGetPostId(postId);
+        let upvoteCount = props.grabPost.upvote;
+        setGetUpvoteCount(upvoteCount)
+    }, []);
+
+    const upvote = () => {
+        fetch(`http://localhost:3000/posts/post/${getPostId}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                post: {
+                    upvote: getUpvoteCount
+                }
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': props.sessionToken
+            }
+        })
+        // .then(setDisableButton(true))
+        .catch(err => console.log(err))
+    }
+
+    const handleUpvoteSubmit = (event) => {
+        event.preventDefault();
+        upvote();
+    }
+
     return(
         <Animated animationIn='fadeInUp'>
             <div className={classes.wrapper}>
@@ -48,16 +92,30 @@ const DisplayPost = (props) => {
                         <Typography variant="h4" gutterBottom>
                             {props.grabPost.title}
                         </Typography>
+                        <hr style={{backgroundColor: 'white'}}/>
                         <Typography variant="body2">
                             {props.grabPost.content}
                         </Typography>
                     </CardContent>
                     <div className={classes.spacer}>
+                        <div className={classes.icons}>
+                            <form id="form">
+                                <button id="testbutton" type='submit'>
+                                    <DownvoteIcon />
+                                </button>
+                            </form>
+                                {getUpvoteCount}
+                            <form id="form" onSubmit={handleUpvoteSubmit}>
+                                <button id="testbutton" type='submit' onClick={() => setGetUpvoteCount(getUpvoteCount + 1)}>
+                                    <UpvoteIcon />
+                                </button>
+                            </form>
+                        </div>
                         <Typography className={classes.postedBy} component="p">
-                            {`Posted by ${props.grabPost.user_username} at ${props.slicedDate}`}
+                            {`Posted by ${props.grabPost.user_username}`}
                         </Typography>
                         <CardActions>
-                        <Button onClick={() => props.setDisplayPost(false)} size="small" style={{color: 'white'}}>Exit</Button>
+                            <Button id="exitPostButton" onClick={() => props.setDisplayPost(false)} className={classes.button} size="small">Exit</Button>
                         </CardActions>
                     </div>
                 </Card>

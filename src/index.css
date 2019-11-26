@@ -6,7 +6,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: rgb(255, 255, 255);
-  background: linear-gradient(245deg, rgba(255,255,255,1) 0%, rgba(209,209,209,1) 100%)
+  background: linear-gradient(245deg, rgba(255,255,255,1) 0%, rgba(209,209,209,1) 100%);
+  overflow-x: hidden;
+  overflow-y: scroll
 }
 
 code {

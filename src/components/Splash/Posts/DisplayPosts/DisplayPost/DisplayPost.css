@@ -1,0 +1,16 @@
+#exitPostButton:hover {
+    background-color: lightgray;
+    color: #333;
+}
+
+#testbutton {
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    overflow: hidden
+}
+
+#form {
+    display: inline;
+}
