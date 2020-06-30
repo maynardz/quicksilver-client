@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Splash.css';
 
 import { Row, Col } from 'reactstrap';
@@ -13,9 +13,9 @@ import TopPosts from './TopPosts/TopPosts';
 
 const useStyles = makeStyles({
     fullList: {
-      width: 650,
-      backgroundColor: '#555',
-      height: '100%'
+        width: 650,
+        backgroundColor: '#555',
+        height: '100%'
     },
 });
 
@@ -35,10 +35,10 @@ const Splash = (props) => {
 
     const fullList = side => (
         <div
-          className={classes.fullList}
-          role="presentation"
-          onClick={toggleDrawer(side, false)}
-          onKeyDown={toggleDrawer(side, false)}
+            className={classes.fullList}
+            role="presentation"
+            onClick={toggleDrawer(side, false)}
+            onKeyDown={toggleDrawer(side, false)}
         >
             <List>
                 <TopPosts sessionToken={props.sessionToken} />
@@ -47,52 +47,54 @@ const Splash = (props) => {
     );
 
     // const grid = () => {
-    //     return state.right === false ? (
-    //         <div className='no-gutters'>
-    //             <Row>
-    //                 <Col md="12">
-    //                     <Posts sessionToken={props.sessionToken} />
-    //                 </Col>
-    //                 <SwipeableDrawer
-    //                     anchor="right"
-    //                     open={state.right}
-    //                     onClose={toggleDrawer('right', false)}
-    //                     onOpen={toggleDrawer('right', true)}
-    //                 >
-    //                     {fullList('right')}
-    //                 </SwipeableDrawer>
-    //             </Row>
-    //         </div>
-    //     ) : (
+    //     return state.right !== false ? (
     //         <div className='no-gutters'>
     //             <Row>
     //                 <Col md="8">
     //                     <Posts sessionToken={props.sessionToken} />
     //                 </Col>
     //                 <Col md="4">
-    //                 <SwipeableDrawer
-    //                     anchor="right"
-    //                     open={state.right}
-    //                     onClose={toggleDrawer('right', false)}
-    //                     onOpen={toggleDrawer('right', true)}
-    //                 >
-    //                     {fullList('right')}
-    //                 </SwipeableDrawer>
+    //                     <SwipeableDrawer
+    //                         anchor="right"
+    //                         open={state.right}
+    //                         onClose={toggleDrawer('right', false)}
+    //                         onOpen={toggleDrawer('right', true)}
+    //                     >
+    //                         {fullList('right')}
+    //                     </SwipeableDrawer>
     //                 </Col>
     //             </Row>
     //         </div>
-    //     )
+    //     ) : (
+    //             <div className='no-gutters'>
+    //                 <Row>
+    //                     <Col md="12">
+    //                         <Posts sessionToken={props.sessionToken} />
+    //                     </Col>
+    //                     <SwipeableDrawer
+    //                         anchor="right"
+    //                         open={state.right}
+    //                         onClose={toggleDrawer('right', false)}
+    //                         onOpen={toggleDrawer('right', true)}
+    //                     >
+    //                         {fullList('right')}
+    //                     </SwipeableDrawer>
+    //                 </Row>
+    //             </div>
+    //         )
     // }
 
-    return(
+    return (
         <div>
             <Navbar updateToken={props.updateToken} clearToken={props.clearToken} toggleDrawer={toggleDrawer} />
             {/* {grid()} */}
             <div className='no-gutters'>
                 <Row>
-                    <Col md="8">
+                    <Col md="12">
                         <Posts sessionToken={props.sessionToken} />
                     </Col>
+                </Row>
+                <Row>
                     <Col md="4">
                     <SwipeableDrawer
                         anchor="right"

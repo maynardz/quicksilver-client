@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     },
     card: {
         background: '#333'
-      },
+    },
 }));
 
 const DisplayTopJS = (props) => {
@@ -31,12 +31,12 @@ const DisplayTopJS = (props) => {
         setHolder(props.sorted);
     });
 
-    return(
+    return (
         <Animated animationIn='fadeInRight'>
             <Card className={classes.root}>
                 <CardContent>
-                <h5>Top JavaScript Posts</h5>
-                <hr style={{backgroundColor: 'white'}}/>
+                    <h5>Top JavaScript Posts</h5>
+                    <hr style={{ backgroundColor: 'white' }} />
                     {
                         holder.slice(0, 5).map(post => {
                             return (
