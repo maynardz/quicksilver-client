@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './Posts.css';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,17 +11,21 @@ import APIURL from '../../../helpers/enviroment';
 
 const useStyles = makeStyles(theme => ({
     textField: {
-      marginLeft: theme.spacing(1),
-      marginTop: theme.spacing(1),
-      width: 400,
-      textIndent: '5px',
-      borderColor: '#333',
-      borderRadius: '5px',
-      background: 'rgba(255, 255, 255, 0.5)',
-      color: '#333',
-      fontSize: '16px',
-      height: '50px'
+        marginLeft: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        width: '60vw',
+        textIndent: '5px',
+        borderColor: '#333',
+        borderRadius: '5px',
+        background: 'rgba(255, 255, 255, 0.5)',
+        color: '#333',
+        fontSize: '16px',
+        height: '50px',
+        textAlign: 'center'
     },
+    align: {
+        textAlign: 'center'
+    }
 }));
 
 const Posts = (props) => {
@@ -43,12 +47,13 @@ const Posts = (props) => {
                 'Authorization': props.sessionToken
             }
         })
-        .then(res => res.json())
-        .then(json => setPosts(json))
+            .then(res => res.json())
+            .then(json => setPosts(json))
     };
 
-    return(
+    return (
         <div>
+            <div className={classes.align}>
             {
                 createPostToggle ? <CreatePost sessionToken={props.sessionToken} getPosts={getPosts} setCreatePostToggle={setCreatePostToggle} /> : (
                     <Animated animationIn='slideInLeft'>
@@ -56,6 +61,7 @@ const Posts = (props) => {
                     </Animated>
                 )
             }
+            </div>
             {
                 createPostToggle ? null : <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} />
             }

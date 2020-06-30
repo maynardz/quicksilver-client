@@ -7,6 +7,7 @@ import { Animated } from "react-animated-css";
 const useStyles = makeStyles({
     textField: {
       width: 400,
+      maxWidth: '80vw',
       outline: 0,
       borderWidth: '0 0 1.5px',
       borderColor: 'white',
@@ -14,7 +15,9 @@ const useStyles = makeStyles({
       color: 'white',
       marginTop: '2.5em',
       fontSize: '16px',
-      height: '50px'
+      height: '50px',
+      display: 'block',
+      margin: '0 auto'
     },
 });
 
