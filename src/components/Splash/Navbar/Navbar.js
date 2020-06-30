@@ -31,6 +31,7 @@ const Navbar = (props) => {
                     <Typography variant="h6" className={classes.title}>
                         quicksilver
                     </Typography>
+                    <Button onClick={props.toggleDrawer('right', true)} id="topPostsButton">Top Posts</Button>
                     <Button id="logoutButton" color="inherit" onClick={props.clearToken}>Logout</Button>
                 </Toolbar>
             </AppBar>

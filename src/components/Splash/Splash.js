@@ -6,7 +6,6 @@ import { Row, Col } from 'reactstrap';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
 
 import Navbar from './Navbar/Navbar';
 import Posts from './Posts/Posts';
@@ -47,50 +46,49 @@ const Splash = (props) => {
         </div>
     );
 
-    const grid = () => {
-        return state.right === false ? (
-            <div className='no-gutters'>
-                <Row>
-                    <Col md="12">
-                        <Posts sessionToken={props.sessionToken} />
-                    </Col>
-                    <SwipeableDrawer
-                        anchor="right"
-                        open={state.right}
-                        onClose={toggleDrawer('right', false)}
-                        onOpen={toggleDrawer('right', true)}
-                    >
-                        {fullList('right')}
-                    </SwipeableDrawer>
-                </Row>
-            </div>
-        ) : (
-            <div className='no-gutters'>
-                <Row>
-                    <Col md="8">
-                        <Posts sessionToken={props.sessionToken} />
-                    </Col>
-                    <Col md="4">
-                    <SwipeableDrawer
-                        anchor="right"
-                        open={state.right}
-                        onClose={toggleDrawer('right', false)}
-                        onOpen={toggleDrawer('right', true)}
-                    >
-                        {fullList('right')}
-                    </SwipeableDrawer>
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
+    // const grid = () => {
+    //     return state.right === false ? (
+    //         <div className='no-gutters'>
+    //             <Row>
+    //                 <Col md="12">
+    //                     <Posts sessionToken={props.sessionToken} />
+    //                 </Col>
+    //                 <SwipeableDrawer
+    //                     anchor="right"
+    //                     open={state.right}
+    //                     onClose={toggleDrawer('right', false)}
+    //                     onOpen={toggleDrawer('right', true)}
+    //                 >
+    //                     {fullList('right')}
+    //                 </SwipeableDrawer>
+    //             </Row>
+    //         </div>
+    //     ) : (
+    //         <div className='no-gutters'>
+    //             <Row>
+    //                 <Col md="8">
+    //                     <Posts sessionToken={props.sessionToken} />
+    //                 </Col>
+    //                 <Col md="4">
+    //                 <SwipeableDrawer
+    //                     anchor="right"
+    //                     open={state.right}
+    //                     onClose={toggleDrawer('right', false)}
+    //                     onOpen={toggleDrawer('right', true)}
+    //                 >
+    //                     {fullList('right')}
+    //                 </SwipeableDrawer>
+    //                 </Col>
+    //             </Row>
+    //         </div>
+    //     )
+    // }
 
     return(
         <div>
-            <Navbar updateToken={props.updateToken} clearToken={props.clearToken} />
-            <Button onClick={toggleDrawer('right', true)}>Open Right</Button>
-            {grid()}
-            {/* <div className='no-gutters'>
+            <Navbar updateToken={props.updateToken} clearToken={props.clearToken} toggleDrawer={toggleDrawer} />
+            {/* {grid()} */}
+            <div className='no-gutters'>
                 <Row>
                     <Col md="8">
                         <Posts sessionToken={props.sessionToken} />
@@ -106,7 +104,7 @@ const Splash = (props) => {
                     </SwipeableDrawer>
                     </Col>
                 </Row>
-            </div> */}
+            </div>
         </div>
     )
 }

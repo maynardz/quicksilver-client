@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1)
+        marginBottom: theme.spacing(1),
     },
     postedBy: {
         fontSize: '10px',
@@ -22,6 +22,11 @@ const useStyles = makeStyles(theme => ({
         fontSize: '20px',
         marginLeft: '.5em'
     },
+    flex: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginRight: '.5em'
+    }
 }));
 
 const DisplayPosts = (props) => {
@@ -44,9 +49,14 @@ const DisplayPosts = (props) => {
                                 <Typography className={classes.content} component="p">
                                     {post.title}
                                 </Typography>
-                                <Typography className={classes.postedBy} component="p">
-                                    {`Posted by ${post.user_username}`}
-                                </Typography>
+                                <div className={classes.flex}>
+                                    <Typography className={classes.postedBy} component="p">
+                                        {`Posted by ${post.user_username}`}
+                                    </Typography>
+                                    <Typography className={classes.postedBy}>
+                                        {post.language}
+                                    </Typography>
+                                </div>
                             </Paper>
                         </div>
                     </Animated>
