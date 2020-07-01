@@ -8,7 +8,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 import UpvoteIcon from '@material-ui/icons/ExpandLessOutlined';
 import DownvoteIcon from '@material-ui/icons/ExpandMoreOutlined';
@@ -123,7 +122,6 @@ const DisplayPost = (props) => {
                         </CardActions>
                     </div>
                 </Card>
-                <ChatBubbleIcon className={classes.icons} />
             </div>
             <div>
                 <Comments grabPost={props.grabPost} />
