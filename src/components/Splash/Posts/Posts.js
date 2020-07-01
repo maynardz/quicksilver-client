@@ -33,6 +33,7 @@ const Posts = (props) => {
 
     const [posts, setPosts] = useState([]);
     const [createPostToggle, setCreatePostToggle] = useState(false);
+    console.log(posts)
 
     // useEffect(() => {
     //     getPosts();

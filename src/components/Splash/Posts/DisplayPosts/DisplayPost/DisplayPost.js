@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './DisplayPost.css';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,11 +8,14 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 import UpvoteIcon from '@material-ui/icons/ExpandLessOutlined';
 import DownvoteIcon from '@material-ui/icons/ExpandMoreOutlined';
 
 import { Animated } from "react-animated-css";
+
+import Comments from './Comments/Comments';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     card: {
         minWidth: 275,
         background: '#333'
-      },
+    },
     postedBy: {
         marginTop: theme.spacing(2.1),
         marginLeft: '1.8em',
@@ -45,7 +48,8 @@ const useStyles = makeStyles(theme => ({
     },
     icons: {
         marginTop: theme.spacing(1),
-        marginLeft: theme.spacing(1)
+        marginLeft: theme.spacing(1),
+        marginBottom: theme.spacing(1)
     }
 }));
 
@@ -75,8 +79,8 @@ const DisplayPost = (props) => {
                 'Authorization': props.sessionToken
             }
         })
-        // .then(setDisableButton(true))
-        .catch(err => console.log(err))
+            // .then(setDisableButton(true))
+            .catch(err => console.log(err))
     }
 
     const handleUpvoteSubmit = (event) => {
@@ -84,15 +88,15 @@ const DisplayPost = (props) => {
         upvote();
     }
 
-    return(
+    return (
         <Animated animationIn='fadeInUp'>
-            <div className={classes.wrapper}>
+            <div>
                 <Card className={classes.root}>
                     <CardContent>
                         <Typography variant="h4" gutterBottom>
                             {props.grabPost.title}
                         </Typography>
-                        <hr style={{backgroundColor: 'white'}}/>
+                        <hr style={{ backgroundColor: 'white' }} />
                         <Typography variant="body2">
                             {props.grabPost.content}
                         </Typography>
@@ -104,7 +108,7 @@ const DisplayPost = (props) => {
                                     <DownvoteIcon />
                                 </button>
                             </form>
-                                {getUpvoteCount}
+                            {getUpvoteCount}
                             <form id="form" onSubmit={handleUpvoteSubmit}>
                                 <button id="testbutton" type='submit' onClick={() => setGetUpvoteCount(getUpvoteCount + 1)}>
                                     <UpvoteIcon />
@@ -119,6 +123,10 @@ const DisplayPost = (props) => {
                         </CardActions>
                     </div>
                 </Card>
+                <ChatBubbleIcon className={classes.icons} />
+            </div>
+            <div>
+                <Comments grabPost={props.grabPost} />
             </div>
         </Animated>
     )
