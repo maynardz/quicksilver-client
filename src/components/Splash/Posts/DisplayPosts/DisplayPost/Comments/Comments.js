@@ -30,11 +30,17 @@ const useStyles = makeStyles((theme) => ({
 const Comments = (props) => {
     const classes = useStyles();
 
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        setComments(props.grabPost.comments)
+    })
+
     return (
         <div>
             {/* <h3 className={classes.title}>Comments</h3> */}
             {
-                props.grabPost.comments.map(comment => {
+                comments.map(comment => {
                     return (
                         <List className={classes.root}>
                             <ListItem alignItems="flex-start">
