@@ -40,33 +40,35 @@ const Comments = (props) => {
         <div>
             {/* <h3 className={classes.title}>Comments</h3> */}
             {
-                comments.map(comment => {
-                    return (
-                        <List className={classes.root}>
-                            <ListItem alignItems="flex-start">
-                                <ListItemAvatar>
-                                    <Avatar alt="profile picture" src="/static/images/avatar/1.jpg" />
-                                </ListItemAvatar>
-                                <ListItemText
-                                    secondary={
-                                        <React.Fragment>
-                                            <Typography
-                                                component="span"
-                                                variant="body2"
-                                                className={classes.inline}
-                                                color="textPrimary"
-                                            >
-                                                {comment.commenter_username}
-                                            </Typography>
-                                            {comment.content}
-                                        </React.Fragment>
-                                    }
-                                />
-                            </ListItem>
-                            <Divider variant="inset" component="li" />
-                        </List>
-                    )
-                })
+                comments.length === 0 ? console.log('no comments for this post') : (
+                    comments.map(comment => {
+                        return (
+                            <List className={classes.root}>
+                                <ListItem alignItems="flex-start">
+                                    <ListItemAvatar>
+                                        <Avatar alt="profile picture" src="/static/images/avatar/1.jpg" />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        secondary={
+                                            <React.Fragment>
+                                                <Typography
+                                                    component="span"
+                                                    variant="body2"
+                                                    className={classes.inline}
+                                                    color="textPrimary"
+                                                >
+                                                    {comment.commenter_username}
+                                                </Typography>
+                                                {comment.content}
+                                            </React.Fragment>
+                                        }
+                                    />
+                                </ListItem>
+                                <Divider variant="inset" component="li" />
+                            </List>
+                        )
+                    })
+                )
             }
         </div>
     )
