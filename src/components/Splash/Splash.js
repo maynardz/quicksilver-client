@@ -13,7 +13,7 @@ import TopPosts from './TopPosts/TopPosts';
 
 const useStyles = makeStyles({
     fullList: {
-        width: 650,
+        minWidth: 275,
         backgroundColor: '#555',
         height: '100%'
     },
