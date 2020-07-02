@@ -14,6 +14,8 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 import UserIcon from '../../../../../../assets/user_icon.png';
 
+import PostComment from './PostComment/PostComment';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         // width: '100%',
@@ -45,10 +47,18 @@ const Comments = (props) => {
     const [comments, setComments] = useState([]);
     const [moreToggle, setMoreToggle] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [postCommentToggle, setPostCommentToggle] = useState(false);
+    const [code, setCode] = useState('');
+    const [openModal, setOpenModal] = React.useState(false);
+
 
     useEffect(() => {
         setComments(props.grabPost.comments)
     })
+
+    const handleOpen = () => {
+        setOpenModal(true);
+    };
 
     const handlePopoverOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -63,6 +73,9 @@ const Comments = (props) => {
     return (
         <div>
             {/* <h3 className={classes.title}>Comments</h3> */}
+            {
+                postCommentToggle ? <PostComment openModal={openModal} setOpenModal={setOpenModal} /> : null
+            }
             {
                 moreToggle === false ? (
                     <div>
@@ -91,7 +104,10 @@ const Comments = (props) => {
                         >
                             <Typography className={classes.popTypog}>Show Comments</Typography>
                         </Popover>
-                        <ChatBubbleIcon className={classes.icons} />
+                        <ChatBubbleIcon className={classes.icons} onClick={() => {
+                            setPostCommentToggle(true);
+                            handleOpen();
+                        }} />
                     </div>
                 ) : moreToggle ? (
                     <div>
@@ -102,7 +118,10 @@ const Comments = (props) => {
                             onMouseLeave={handlePopoverClose}
                             className={classes.icons}
                             onClick={() => setMoreToggle(false)} />
-                        <ChatBubbleIcon className={classes.icons} />
+                        <ChatBubbleIcon className={classes.icons} onClick={() => {
+                            setPostCommentToggle(true);
+                            handleOpen();
+                        }} />
                         <Popover
                             id="mouse-over-popover"
                             className={classes.popover}
@@ -122,7 +141,7 @@ const Comments = (props) => {
                             <Typography className={classes.popTypog}>Hide Comments</Typography>
                         </Popover>
                         {
-                            comments.length === 0 ? <h6 style={{textAlign: 'center'}}>There are no comments on this post yet</h6> : (
+                            comments.length === 0 ? <h6 style={{ textAlign: 'center' }}>There are no comments on this post yet</h6> : (
                                 comments.map(comment => {
                                     return (
                                         <List className={classes.root}>
