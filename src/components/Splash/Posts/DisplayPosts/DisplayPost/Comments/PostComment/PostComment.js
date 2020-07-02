@@ -1,53 +1,76 @@
 import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles((theme) => ({
-    modal: {
+import { Animated } from "react-animated-css";
+
+const useStyles = makeStyles(theme => ({
+    wrapper: {
+        margin: theme.spacing(1),
+    },
+    formControl: {
+        minWidth: 200,
+    },
+    titleTextField: {
+        marginTop: theme.spacing(1),
+        width: '100%',
+        textIndent: '5px',
+        borderColor: '#333',
+        borderWidth: '0 0 1.5px',
+        borderColor: 'white',
+        background: 'none',
+        color: '#333',
+        fontSize: '16px',
+        height: '50px'
+    },
+    contentTextField: {
+        marginTop: theme.spacing(1),
+        width: '100%',
+        textIndent: '5px',
+        borderColor: '#333',
+        borderWidth: '0 0 1.5px',
+        borderColor: 'white',
+        background: 'none',
+        color: '#333',
+        fontSize: '16px',
+        height: '150px'
+    },
+    button: {
+        color: '#333',
+        fontSize: '16px'
+    },
+    exitButton: {
+        color: '#333'
+    },
+    spacer: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
+        justifyContent: 'space-between'
+    }
 }));
-
 
 const PostComment = props => {
     const classes = useStyles();
 
-    const handleClose = () => {
-        props.setOpenModal(false);
-    };
-
     return (
         <div>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={props.openModal}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={props.openModal}>
-                    <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Transition modal</h2>
-                        <p id="transition-modal-description">react-transition-group animates me.</p>
-                    </div>
-                </Fade>
-            </Modal>
+            {/* <Animated animationIn="slideInLeft"> */}
+                <div className={classes.wrapper}>
+                    <form>
+                        <Typography>
+                            <input id='titleInput' type="text" className={classes.titleTextField} placeholder="Title" />
+                        </Typography>
+                        <Typography>
+                            <textarea id='contentInput' type="text" className={classes.contentTextField} placeholder="Text (optional)" />
+                        </Typography>
+                        <div className={classes.spacer}>
+                            <Button id='createPostButton' type='submit' className={classes.button}>Submit</Button>
+                            <Button onClick={() => props.setPostCommentToggle(false)} id='exitCreatePostButton' type='submit' className={classes.exitButton}>Exit</Button>
+                        </div>
+                    </form>
+                </div>
+            {/* </Animated> */}
         </div>
     )
 }

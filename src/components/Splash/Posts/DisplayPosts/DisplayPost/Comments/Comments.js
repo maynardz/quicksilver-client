@@ -48,17 +48,10 @@ const Comments = (props) => {
     const [moreToggle, setMoreToggle] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [postCommentToggle, setPostCommentToggle] = useState(false);
-    const [code, setCode] = useState('');
-    const [openModal, setOpenModal] = React.useState(false);
-
 
     useEffect(() => {
         setComments(props.grabPost.comments)
     })
-
-    const handleOpen = () => {
-        setOpenModal(true);
-    };
 
     const handlePopoverOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -72,9 +65,8 @@ const Comments = (props) => {
 
     return (
         <div>
-            {/* <h3 className={classes.title}>Comments</h3> */}
             {
-                postCommentToggle ? <PostComment openModal={openModal} setOpenModal={setOpenModal} /> : null
+                postCommentToggle ? <PostComment setPostCommentToggle={setPostCommentToggle} /> : null
             }
             {
                 moreToggle === false ? (
@@ -106,7 +98,7 @@ const Comments = (props) => {
                         </Popover>
                         <ChatBubbleIcon className={classes.icons} onClick={() => {
                             setPostCommentToggle(true);
-                            handleOpen();
+                            setMoreToggle(true)
                         }} />
                     </div>
                 ) : moreToggle ? (
@@ -120,7 +112,7 @@ const Comments = (props) => {
                             onClick={() => setMoreToggle(false)} />
                         <ChatBubbleIcon className={classes.icons} onClick={() => {
                             setPostCommentToggle(true);
-                            handleOpen();
+                            setMoreToggle(true);
                         }} />
                         <Popover
                             id="mouse-over-popover"
@@ -141,7 +133,7 @@ const Comments = (props) => {
                             <Typography className={classes.popTypog}>Hide Comments</Typography>
                         </Popover>
                         {
-                            comments.length === 0 ? <h6 style={{ textAlign: 'center' }}>There are no comments on this post yet</h6> : (
+                            comments.length === 0 ? <h6 style={{ textAlign: 'center' }}>There are no comments on this post yet :(</h6> : (
                                 comments.map(comment => {
                                     return (
                                         <List className={classes.root}>

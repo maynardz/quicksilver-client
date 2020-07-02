@@ -1,0 +1,21 @@
+#titleInput:focus {
+    border: 1.5px solid white;
+    border-radius: 5px;
+    text-indent: 15px;
+}
+
+#contentInput:focus {
+    border: 1.5px solid white;
+    border-radius: 5px;
+    text-indent: 15px;
+}
+
+#createPostButton:hover {
+    background-color: lightgray;
+    color: #333;
+}
+
+#exitCreatePostButton:hover {
+    background-color: lightgray;
+    color: #333;
+}
