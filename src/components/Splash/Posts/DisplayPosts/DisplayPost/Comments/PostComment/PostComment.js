@@ -6,6 +6,9 @@ import Button from '@material-ui/core/Button';
 
 import { Animated } from "react-animated-css";
 
+import APIURL from '../../../../../../../helpers/enviroment';
+
+
 const useStyles = makeStyles(theme => ({
     wrapper: {
         margin: theme.spacing(1),
@@ -19,6 +22,8 @@ const useStyles = makeStyles(theme => ({
         textIndent: '5px',
         borderColor: '#333',
         borderWidth: '0 0 1.5px',
+        borderRadius: '5px',
+        backgroundColor: 'white',
         borderColor: 'white',
         background: 'none',
         color: '#333',
@@ -31,18 +36,21 @@ const useStyles = makeStyles(theme => ({
         textIndent: '5px',
         borderColor: '#333',
         borderWidth: '0 0 1.5px',
+        borderRadius: '5px',
         borderColor: 'white',
-        background: 'none',
+        background: 'white',
         color: '#333',
         fontSize: '16px',
         height: '150px'
     },
     button: {
-        color: '#333',
+        backgroundColor: '#333',
+        color: 'white',
         fontSize: '16px'
     },
     exitButton: {
-        color: '#333'
+        backgroundColor: '#333',
+        color: 'white'
     },
     spacer: {
         display: 'flex',
@@ -52,24 +60,52 @@ const useStyles = makeStyles(theme => ({
 
 const PostComment = props => {
     const classes = useStyles();
+    // console.log(props);
+
+    const [content, setContent] = useState('');
+
+    const postComment = e => {
+        e.preventDefault();
+
+        fetch(`${APIURL}/comments/comment`, {
+            method: 'POST',
+            body: JSON.stringify({
+                comment: {
+                    post_id: props.grabPost.post_id,
+                    content: content
+                }
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': props.sessionToken
+            }
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log(json);
+            setContent('')
+            props.getComments();
+        })
+        .catch(err => alert(err))
+    }
 
     return (
         <div>
             {/* <Animated animationIn="slideInLeft"> */}
-                <div className={classes.wrapper}>
-                    <form>
-                        <Typography>
-                            <input id='titleInput' type="text" className={classes.titleTextField} placeholder="Title" />
-                        </Typography>
-                        <Typography>
-                            <textarea id='contentInput' type="text" className={classes.contentTextField} placeholder="Text (optional)" />
-                        </Typography>
-                        <div className={classes.spacer}>
-                            <Button id='createPostButton' type='submit' className={classes.button}>Submit</Button>
-                            <Button onClick={() => props.setPostCommentToggle(false)} id='exitCreatePostButton' type='submit' className={classes.exitButton}>Exit</Button>
-                        </div>
-                    </form>
-                </div>
+            <div className={classes.wrapper}>
+                <form onSubmit={postComment}>
+                    {/* <Typography>
+                        <input id='titleInput' type="text" className={classes.titleTextField} placeholder="Title" />
+                    </Typography> */}
+                    <Typography>
+                        <textarea id='contentInput' type="text" className={classes.contentTextField} placeholder={`Add a comment as ${props.currentUser}...`} onChange={(e) => setContent(e.target.value)} />
+                    </Typography>
+                    <div className={classes.spacer}>
+                        <Button id='createCommentButton' type='submit' className={classes.button}>Submit</Button>
+                        <Button onClick={() => props.setPostCommentToggle(false)} id='exitCreateCommentButton' type='submit' className={classes.exitButton}>Exit</Button>
+                    </div>
+                </form>
+            </div>
             {/* </Animated> */}
         </div>
     )

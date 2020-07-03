@@ -90,7 +90,7 @@ const CreatePost = (props) => {
         })
         .then(res => res.json())
         .then(json => console.log(json))
-        .then(props.getPosts)
+        .then(props.getPosts())
         .then(
             setTitle(''),
             setContent(''),

@@ -7,26 +7,34 @@ import Splash from './components/Splash/Splash'
 function App() {
 
   const [sessionToken, setSessionToken] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
     if(localStorage.getItem('token')){
-      setSessionToken(localStorage.getItem('token'))
+      setSessionToken(localStorage.getItem('token'));
+    }
+    if(localStorage.getItem('currentUser')){
+      setCurrentUser(localStorage.getItem('currentUser'));
     }
   }, []);
 
-  const updateToken = (newToken) => {
+  const updateLocalStorage = (newToken, user) => {
     localStorage.setItem('token', newToken);
+    localStorage.setItem('currentUser', user)
     setSessionToken(newToken);
-    console.log(sessionToken)
+    setCurrentUser(user)
+    console.log(sessionToken);
+    console.log(user)
   }
 
-  const clearToken = () => {
+  const clearLocalStorage = () => {
     localStorage.clear();
-    setSessionToken(undefined)
+    setSessionToken(undefined);
+    setCurrentUser('')
   }
 
   const viewToggle = () => {
-    return sessionToken !== undefined ? <Splash clearToken={clearToken} sessionToken={sessionToken} /> : <Auth updateToken={updateToken}/>
+    return sessionToken !== undefined ? <Splash clearLocalStorage={clearLocalStorage} sessionToken={sessionToken} currentUser={currentUser} /> : <Auth updateLocalStorage={updateLocalStorage} />
   }
 
   return (

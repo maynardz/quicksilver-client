@@ -86,12 +86,12 @@ const Splash = (props) => {
 
     return (
         <div>
-            <Navbar updateToken={props.updateToken} clearToken={props.clearToken} toggleDrawer={toggleDrawer} />
+            <Navbar updateToken={props.updateToken} clearLocalStorage={props.clearLocalStorage} toggleDrawer={toggleDrawer} />
             {/* {grid()} */}
             <div className='no-gutters'>
                 <Row>
                     <Col md="12">
-                        <Posts sessionToken={props.sessionToken} />
+                        <Posts sessionToken={props.sessionToken} currentUser={props.currentUser} />
                     </Col>
                 </Row>
                 <Row>

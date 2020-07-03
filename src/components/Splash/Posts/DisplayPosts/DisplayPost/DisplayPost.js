@@ -54,15 +54,17 @@ const useStyles = makeStyles(theme => ({
 
 const DisplayPost = (props) => {
     const classes = useStyles();
+    // console.log(props)
 
     const [getPostId, setGetPostId] = useState('');
     const [getUpvoteCount, setGetUpvoteCount] = useState(0);
 
     useEffect(() => {
-        let postId = props.grabPost.id;
+        props.getPosts();
+        let postId = props.grabPost.post_id;
         setGetPostId(postId);
         let upvoteCount = props.grabPost.upvote;
-        setGetUpvoteCount(upvoteCount)
+        setGetUpvoteCount(upvoteCount);
     }, []);
 
     const upvote = () => {
@@ -78,7 +80,7 @@ const DisplayPost = (props) => {
                 'Authorization': props.sessionToken
             }
         })
-            // .then(setDisableButton(true))
+            .then(props.getPosts())
             .catch(err => console.log(err))
     }
 
@@ -102,8 +104,8 @@ const DisplayPost = (props) => {
                     </CardContent>
                     <div className={classes.spacer}>
                         <div className={classes.icons}>
-                            <form id="form">
-                                <button id="testbutton" type='submit'>
+                            <form id="form" onSubmit={handleUpvoteSubmit}>
+                                <button id="testbutton" type='submit' onClick={() => setGetUpvoteCount(getUpvoteCount - 1)}>
                                     <DownvoteIcon />
                                 </button>
                             </form>
@@ -124,7 +126,7 @@ const DisplayPost = (props) => {
                 </Card>
             </div>
             <div>
-                <Comments grabPost={props.grabPost} />
+                <Comments grabPost={props.grabPost} sessionToken={props.sessionToken} currentUser={props.currentUser} />
             </div>
         </Animated>
     )

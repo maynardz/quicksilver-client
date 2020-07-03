@@ -32,7 +32,7 @@ const Navbar = (props) => {
                         quicksilver
                     </Typography>
                     <Button onClick={props.toggleDrawer('right', true)} id="topPostsButton">Top Posts</Button>
-                    <Button id="logoutButton" color="inherit" onClick={props.clearToken}>Logout</Button>
+                    <Button id="logoutButton" color="inherit" onClick={props.clearLocalStorage}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </Animated>

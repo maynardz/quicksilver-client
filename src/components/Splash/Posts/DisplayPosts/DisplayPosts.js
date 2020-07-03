@@ -33,14 +33,14 @@ const DisplayPosts = (props) => {
     const classes = useStyles();
 
     const [displayPost, setDisplayPost] = useState(false);
-    const [grabPost, setGrabPost] = useState();
+    const [grabPost, setGrabPost] = useState({});
 
     useEffect(() => {
         props.getPosts();
     }, []);
 
     const postToggle = () => {
-        return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} /> : (
+        return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} currentUser={props.currentUser} /> : (
             props.posts.map((post, key) => {
                 return (
                     <Animated animationIn='slideInLeft' key={key}>

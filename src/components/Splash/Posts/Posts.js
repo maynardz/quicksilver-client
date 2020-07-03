@@ -64,7 +64,7 @@ const Posts = (props) => {
             }
             </div>
             {
-                createPostToggle ? null : <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} />
+                createPostToggle ? null : <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} currentUser={props.currentUser} />
             }
         </div>
     )

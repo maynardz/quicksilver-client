@@ -16,6 +16,8 @@ import UserIcon from '../../../../../../assets/user_icon.png';
 
 import PostComment from './PostComment/PostComment';
 
+import APIURL from '../../../../../../helpers/enviroment';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         // width: '100%',
@@ -50,8 +52,8 @@ const Comments = (props) => {
     const [postCommentToggle, setPostCommentToggle] = useState(false);
 
     useEffect(() => {
-        setComments(props.grabPost.comments)
-    })
+        getComments();
+    }, [])
 
     const handlePopoverOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -61,12 +63,25 @@ const Comments = (props) => {
         setAnchorEl(null);
     };
 
+    const getComments = () => {
+        const url = `${APIURL}/comments/comment/${props.grabPost.post_id}`
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': props.sessionToken
+            }
+        })
+            .then(res => res.json())
+            .then(json => setComments(json))
+    };
+
     const open = Boolean(anchorEl);
 
     return (
         <div>
             {
-                postCommentToggle ? <PostComment setPostCommentToggle={setPostCommentToggle} /> : null
+                postCommentToggle ? <PostComment setPostCommentToggle={setPostCommentToggle} sessionToken={props.sessionToken} grabPost={props.grabPost} currentUser={props.currentUser} getComments={getComments} /> : null
             }
             {
                 moreToggle === false ? (
