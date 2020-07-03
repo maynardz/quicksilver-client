@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 import { Animated } from "react-animated-css";
 
 import APIURL from '../../../../../../../helpers/enviroment';
-
 
 const useStyles = makeStyles(theme => ({
     wrapper: {
@@ -80,13 +80,14 @@ const PostComment = props => {
                 'Authorization': props.sessionToken
             }
         })
-        .then(res => res.json())
-        .then(json => {
-            console.log(json);
-            setContent('')
-            props.getComments();
-        })
-        .catch(err => alert(err))
+            .then(res => res.json())
+            .then(json => {
+                props.setAlert(true);
+                setContent('')
+                props.setPostCommentToggle(false);
+                props.getComments();
+            })
+            .catch(err => alert(err))
     }
 
     return (

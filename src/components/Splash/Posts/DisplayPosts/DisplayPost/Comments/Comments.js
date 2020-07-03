@@ -12,6 +12,8 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Popover from '@material-ui/core/Popover';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
+import { Alert } from '@material-ui/lab';
+
 import UserIcon from '../../../../../../assets/user_icon.png';
 
 import PostComment from './PostComment/PostComment';
@@ -19,6 +21,15 @@ import PostComment from './PostComment/PostComment';
 import APIURL from '../../../../../../helpers/enviroment';
 
 const useStyles = makeStyles((theme) => ({
+    alert: {
+        width: '100%',
+        '& > * + *': {
+            // marginTop: theme.spacing(2),
+        },
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        marginBottom: theme.spacing(1)
+    },
     root: {
         // width: '100%',
         minWidth: 275,
@@ -50,6 +61,7 @@ const Comments = (props) => {
     const [moreToggle, setMoreToggle] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [postCommentToggle, setPostCommentToggle] = useState(false);
+    const [alert, setAlert] = useState(false);
 
     useEffect(() => {
         getComments();
@@ -78,10 +90,23 @@ const Comments = (props) => {
 
     const open = Boolean(anchorEl);
 
+    const timeout = () => {
+        if (alert === true) {
+            setTimeout(() => {
+                setAlert(false)
+            }, 3000);
+            return (
+                <Alert className={classes.alert} onClose={() => setAlert(false)}>Comment posted — check it out!</Alert>
+            )
+        } else {
+            return;
+        }
+    }
+
     return (
         <div>
             {
-                postCommentToggle ? <PostComment setPostCommentToggle={setPostCommentToggle} sessionToken={props.sessionToken} grabPost={props.grabPost} currentUser={props.currentUser} getComments={getComments} /> : null
+                postCommentToggle ? <PostComment setPostCommentToggle={setPostCommentToggle} sessionToken={props.sessionToken} grabPost={props.grabPost} currentUser={props.currentUser} getComments={getComments} setAlert={setAlert} /> : null
             }
             {
                 moreToggle === false ? (
@@ -147,6 +172,7 @@ const Comments = (props) => {
                         >
                             <Typography className={classes.popTypog}>Hide Comments</Typography>
                         </Popover>
+                        {timeout()}
                         {
                             comments.length === 0 ? <h6 style={{ textAlign: 'center' }}>There are no comments on this post yet :(</h6> : (
                                 comments.map(comment => {
