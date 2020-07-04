@@ -8,6 +8,7 @@ function App() {
 
   const [sessionToken, setSessionToken] = useState(undefined);
   const [currentUser, setCurrentUser] = useState('');
+  const [userID, setUserID] = useState('');
 
   useEffect(() => {
     if(localStorage.getItem('token')){
@@ -16,21 +17,27 @@ function App() {
     if(localStorage.getItem('currentUser')){
       setCurrentUser(localStorage.getItem('currentUser'));
     }
+    if(localStorage.getItem('userID')){
+      setUserID(localStorage.getItem('userID'));
+    }
   }, []);
 
-  const updateLocalStorage = (newToken, user) => {
+  const updateLocalStorage = (newToken, user, id) => {
     localStorage.setItem('token', newToken);
-    localStorage.setItem('currentUser', user)
+    localStorage.setItem('currentUser', user);
+    localStorage.setItem('userID', id);
     setSessionToken(newToken);
-    setCurrentUser(user)
+    setCurrentUser(user);
+    setUserID(id);
     console.log(sessionToken);
-    console.log(user)
+    console.log(user);
   }
 
   const clearLocalStorage = () => {
     localStorage.clear();
     setSessionToken(undefined);
-    setCurrentUser('')
+    setCurrentUser('');
+    setUserID('');
   }
 
   const viewToggle = () => {

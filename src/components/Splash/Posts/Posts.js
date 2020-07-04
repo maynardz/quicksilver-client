@@ -35,9 +35,9 @@ const Posts = (props) => {
     const [createPostToggle, setCreatePostToggle] = useState(false);
     console.log(posts)
 
-    // useEffect(() => {
-    //     getPosts();
-    // }, []);
+    useEffect(() => {
+        getPosts();
+    }, []);
 
     const getPosts = () => {
         const url = `${APIURL}/posts/post`
@@ -54,15 +54,15 @@ const Posts = (props) => {
 
     return (
         <div>
-            <div className={classes.align}>
             {
                 createPostToggle ? <CreatePost sessionToken={props.sessionToken} getPosts={getPosts} setCreatePostToggle={setCreatePostToggle} /> : (
-                    <Animated animationIn='slideInLeft'>
-                        <input id="postInput" className={classes.textField} onClick={() => setCreatePostToggle(true)} placeholder="Create Post" />
-                    </Animated>
+                    <div className={classes.align}>
+                        <Animated animationIn='slideInLeft'>
+                            <input id="postInput" className={classes.textField} onClick={() => setCreatePostToggle(true)} placeholder="Create Post" />
+                        </Animated>
+                    </div>
                 )
             }
-            </div>
             {
                 createPostToggle ? null : <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} currentUser={props.currentUser} />
             }

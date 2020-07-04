@@ -33,18 +33,18 @@ const Splash = (props) => {
         setState({ ...state, [side]: open });
     };
 
-    const fullList = side => (
-        <div
-            className={classes.fullList}
-            role="presentation"
-            onClick={toggleDrawer(side, false)}
-            onKeyDown={toggleDrawer(side, false)}
-        >
-            <List>
-                <TopPosts sessionToken={props.sessionToken} />
-            </List>
-        </div>
-    );
+    // const fullList = side => (
+    //     <div
+    //         className={classes.fullList}
+    //         role="presentation"
+    //         onClick={toggleDrawer(side, false)}
+    //         onKeyDown={toggleDrawer(side, false)}
+    //     >
+    //         <List>
+    //             <TopPosts sessionToken={props.sessionToken} />
+    //         </List>
+    //     </div>
+    // );
 
     // const grid = () => {
     //     return state.right !== false ? (
@@ -102,7 +102,7 @@ const Splash = (props) => {
                         onClose={toggleDrawer('right', false)}
                         onOpen={toggleDrawer('right', true)}
                     >
-                        {fullList('right')}
+                        {/* {fullList('right')} */}
                     </SwipeableDrawer>
                     </Col>
                 </Row>

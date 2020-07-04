@@ -110,7 +110,7 @@ const Auth = (props) => {
             .then(res => res.json())
             .then(json => {
                 console.log(json)
-                props.updateLocalStorage(json.sessionToken, json.user.username);
+                props.updateLocalStorage(json.sessionToken, json.user.username, json.user.id);
             })
             .catch(err => alert('Incorrect Password'))
     }
