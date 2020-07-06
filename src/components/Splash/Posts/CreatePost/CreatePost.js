@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import './CreatePost.css';
 
@@ -62,13 +62,15 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'space-between'
     }
-  }));
+}));
 
 const CreatePost = (props) => {
     const classes = useStyles();
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [code, setCode] = useState('');
+    // const [isCode, setisCode] = useState(false);
     const [upvote, setUpvote] = useState(0);
     const [language, setLanguage] = useState('');
 
@@ -77,29 +79,32 @@ const CreatePost = (props) => {
 
         fetch(`${APIURL}/posts/post`, {
             method: 'POST',
-            body: JSON.stringify({post: {
-                title: title,
-                content: content,
-                upvote: upvote,
-                language: language
-            }}),
+            body: JSON.stringify({
+                post: {
+                    title: title,
+                    content: content,
+                    upvote: upvote,
+                    code: code,
+                    language: language
+                }
+            }),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': props.sessionToken
             }
         })
-        .then(res => res.json())
-        .then(json => console.log(json))
-        .then(props.getPosts())
-        .then(
-            setTitle(''),
-            setContent(''),
-            setUpvote(0),
-            setLanguage(''),
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .then(props.getPosts())
+            .then(
+                setTitle(''),
+                setContent(''),
+                setUpvote(0),
+                setLanguage(''),
 
-            props.setCreatePostToggle(false)
-        )
-        .catch(err => console.log(err))
+                props.setCreatePostToggle(false)
+            )
+            .catch(err => console.log(err))
     }
 
     const handleChange = (event) => {
@@ -107,7 +112,7 @@ const CreatePost = (props) => {
         console.log(language);
     }
 
-    return(
+    return (
         <Animated animationIn="slideInUp">
             <div className={classes.wrapper}>
                 <form onSubmit={postPost}>
@@ -117,14 +122,14 @@ const CreatePost = (props) => {
                                 <FormControl className={classes.formControl}>
                                     <InputLabel id="select-language">Language</InputLabel>
                                     <Select
-                                    labelId="select-language"
-                                    id="select-language"
-                                    value={language}
-                                    onChange={handleChange}
+                                        labelId="select-language"
+                                        id="select-language"
+                                        value={language}
+                                        onChange={handleChange}
                                     >
-                                    <MenuItem value={'JavaScript'}>JavaScript</MenuItem>
-                                    <MenuItem value={'.Net'}>.Net</MenuItem>
-                                    <MenuItem value={'Python'}>Python</MenuItem>
+                                        <MenuItem value={'JavaScript'}>JavaScript</MenuItem>
+                                        <MenuItem value={'.Net'}>.Net</MenuItem>
+                                        <MenuItem value={'Python'}>Python</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Typography>
@@ -133,6 +138,9 @@ const CreatePost = (props) => {
                             </Typography>
                             <Typography>
                                 <textarea id='contentInput' type="text" className={classes.contentTextField} placeholder="Text (optional)" onChange={(e) => setContent(e.target.value)} />
+                            </Typography>
+                            <Typography>
+                                <textarea id='contentInput' type="text" multiline={true} className={classes.contentTextField} placeholder="Code snippet (optional)" onChange={(e) => setCode(e.target.value)} />
                             </Typography>
                         </CardContent>
                         <div className={classes.spacer}>

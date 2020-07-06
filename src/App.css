@@ -2,3 +2,7 @@
   font-family: quicksilver;
   src: url('./assets/Disolve_light.ttf');
 }
+
+.App {
+  margin-bottom: 2em;
+}

@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import UpvoteIcon from '@material-ui/icons/ExpandLessOutlined';
 import DownvoteIcon from '@material-ui/icons/ExpandMoreOutlined';
+import { CopyBlock, dracula, anOldHope, shadesOfPurple, obsidian } from 'react-code-blocks'
 
 import { Animated } from "react-animated-css";
 
@@ -92,6 +93,12 @@ const useStyles = makeStyles(theme => ({
         fontSize: '16px',
         height: '150px'
     },
+    spacing: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        marginTop: theme.spacing(2),
+        // marginBottom: theme.spacing(1)
+    }
 }));
 
 const DisplayPost = (props) => {
@@ -162,6 +169,13 @@ const DisplayPost = (props) => {
                         <Typography variant="body2">
                             {props.grabPost.content}
                         </Typography>
+                        {
+                            props.grabPost.code !== null ? (
+                                <div className={classes.spacing}>
+                                    <CopyBlock language='javascript' text={props.grabPost.code} theme={obsidian} wrapLines={true} />
+                                </div>
+                            ) : null
+                        }
                     </CardContent>
                     <div className={classes.spacer}>
                         <div className={classes.icons}>

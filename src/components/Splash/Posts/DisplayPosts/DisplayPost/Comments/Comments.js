@@ -136,6 +136,15 @@ const Comments = (props) => {
                         >
                             <Typography className={classes.popTypog}>Show Comments</Typography>
                         </Popover>
+                        {
+                            comments.length === 0 ? (
+                                `${comments.length} comments`
+                            ) : comments.length === 1 ? (
+                                `${comments.length} comment`
+                            ) : comments.length > 1 ? (
+                                `${comments.length} comments`
+                            ) : null
+                        }
                         <ChatBubbleIcon className={classes.icons} onClick={() => {
                             setPostCommentToggle(true);
                             setMoreToggle(true)
