@@ -41,9 +41,9 @@ const DisplayPosts = (props) => {
     // const [checked, setChecked] = useState(false);
     // console.log(sorted);
    
-    useEffect(() => {
-        props.getPosts();
-    }, []);
+    // useEffect(() => {
+    //     props.getPosts();
+    // }, []);
 
     // const sortPosts = () => {
     //     let copy = sorted;

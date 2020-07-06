@@ -40,16 +40,19 @@ const Posts = (props) => {
     }, []);
 
     const getPosts = () => {
-        const url = `${APIURL}/posts/post`
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': props.sessionToken
-            }
-        })
-            .then(res => res.json())
-            .then(json => setPosts(json))
+        setTimeout(() => {
+            fetch(`${APIURL}/posts/post`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': props.sessionToken
+                }
+            })
+                .then(res => res.json())
+                .then(json => {
+                    setPosts(json);
+                })
+        }, 500);
     };
 
     return (

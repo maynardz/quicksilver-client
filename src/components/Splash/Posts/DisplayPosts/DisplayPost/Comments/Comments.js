@@ -96,7 +96,7 @@ const Comments = (props) => {
                 setAlert(false)
             }, 3000);
             return (
-                <Alert className={classes.alert} onClose={() => setAlert(false)}>Comment posted — check it out!</Alert>
+                <Alert className={classes.alert} onClose={() => setAlert(false)}>Comment posted!</Alert>
             )
         } else {
             return;
