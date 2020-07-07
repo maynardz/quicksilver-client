@@ -15,7 +15,7 @@ const DeletePost = (props) => {
     const classes = useStyles();
 
     const deletePost = () => {
-        fetch(`${APIURL}/posts/post/${props.getPostId}`, {
+        fetch(`${APIURL}/posts/post/${props.postId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

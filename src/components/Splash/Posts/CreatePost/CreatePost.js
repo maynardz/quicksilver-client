@@ -69,8 +69,7 @@ const CreatePost = (props) => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [code, setCode] = useState('');
-    // const [isCode, setisCode] = useState(false);
+    const [code, setCode] = useState(null);
     const [upvote, setUpvote] = useState(0);
     const [language, setLanguage] = useState('');
 

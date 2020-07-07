@@ -63,6 +63,7 @@ const PostComment = props => {
     // console.log(props);
 
     const [content, setContent] = useState('');
+    const [code, setCode] = useState(null);
 
     const postComment = e => {
         e.preventDefault();
@@ -72,7 +73,8 @@ const PostComment = props => {
             body: JSON.stringify({
                 comment: {
                     post_id: props.grabPost.post_id,
-                    content: content
+                    content: content,
+                    code: code
                 }
             }),
             headers: {
@@ -100,6 +102,9 @@ const PostComment = props => {
                     </Typography> */}
                     <Typography>
                         <textarea id='contentInput' type="text" className={classes.contentTextField} placeholder={`Add a comment as ${props.currentUser}...`} onChange={(e) => setContent(e.target.value)} />
+                    </Typography>
+                    <Typography>
+                        <textarea id='contentInput' type="text" multiline={true} className={classes.contentTextField} placeholder="Code snippet (optional)" onChange={(e) => setCode(e.target.value)} />
                     </Typography>
                     <div className={classes.spacer}>
                         <Button id='createCommentButton' type='submit' className={classes.button}>Submit</Button>

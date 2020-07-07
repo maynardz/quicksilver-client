@@ -36,11 +36,12 @@ const DisplayPosts = (props) => {
 
     const [displayPost, setDisplayPost] = useState(false);
     const [grabPost, setGrabPost] = useState({});
-    
+    const [postId, setPostId] = useState('');
+
     // const [sorted, setSorted] = useState([]);
     // const [checked, setChecked] = useState(false);
     // console.log(sorted);
-   
+
     // useEffect(() => {
     //     props.getPosts();
     // }, []);
@@ -55,12 +56,14 @@ const DisplayPosts = (props) => {
 
     //         return aTrimmed - bTrimmed
     //     })
-        
+
     // };
 
     const postToggle = () => {
-        return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} currentUser={props.currentUser} /> : (
+        return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} currentUser={props.currentUser} postId={postId} /> : (
             props.posts.map((post, index) => {
+                console.log(post);
+                let postId = post.post_id;
                 let date = post.created_at;
                 let day = date.slice(8, 10);
                 let month = date.slice(5, 7);
@@ -69,7 +72,7 @@ const DisplayPosts = (props) => {
                 return (
                     <Animated key={index} animationIn='slideInLeft'>
                         <div onClick={() => setDisplayPost(true)} >
-                            <Paper onClick={() => setGrabPost(post)} className={classes.root}>
+                            <Paper onClick={() => {setGrabPost(post); setPostId(postId)}} className={classes.root}>
                                 <Typography className={classes.content} component="p">
                                     {post.title}
                                 </Typography>

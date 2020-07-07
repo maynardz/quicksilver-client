@@ -8,8 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import UpvoteIcon from '@material-ui/icons/ExpandLessOutlined';
-import DownvoteIcon from '@material-ui/icons/ExpandMoreOutlined';
+// import UpvoteIcon from '@material-ui/icons/ExpandLessOutlined';
+// import DownvoteIcon from '@material-ui/icons/ExpandMoreOutlined';
 import { CopyBlock, dracula, anOldHope, shadesOfPurple, obsidian } from 'react-code-blocks'
 
 import { Animated } from "react-animated-css";
@@ -105,44 +105,41 @@ const DisplayPost = (props) => {
     console.log(props)
     const classes = useStyles();
 
-    const [getPostId, setGetPostId] = useState('');
-    const [getUpvoteCount, setGetUpvoteCount] = useState(0);
+    // const [getUpvoteCount, setGetUpvoteCount] = useState(0);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [openModal, setOpenModal] = React.useState(false);
     const [postToUpdate, setPostToUpdate] = useState({});
     const [updateOn, setUpdateOn] = useState(false);
 
     useEffect(() => {
-        let postId = props.grabPost.post_id;
-        setGetPostId(postId);
-        let upvoteCount = props.grabPost.upvote;
-        setGetUpvoteCount(upvoteCount);
+        // let upvoteCount = props.grabPost.upvote;
+        // setGetUpvoteCount(upvoteCount);
         let postToUpd = props.grabPost;
         setPostToUpdate(postToUpd);
         console.log(postToUpd);
     }, []);
 
-    const upvote = () => {
-        fetch(`${APIURL}/posts/post/${getPostId}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                post: {
-                    upvote: getUpvoteCount
-                }
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': props.sessionToken
-            }
-        })
-            .then(props.getPosts())
-            .catch(err => console.log(err))
-    };
+    // const upvote = () => {
+    //     fetch(`${APIURL}/posts/post/${getPostId}`, {
+    //         method: 'PUT',
+    //         body: JSON.stringify({
+    //             post: {
+    //                 upvote: getUpvoteCount
+    //             }
+    //         }),
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': props.sessionToken
+    //         }
+    //     })
+    //         .then(props.getPosts())
+    //         .catch(err => console.log(err))
+    // };
 
-    const handleUpvoteSubmit = (event) => {
-        event.preventDefault();
-        upvote();
-    };
+    // const handleUpvoteSubmit = (event) => {
+    //     event.preventDefault();
+    //     upvote();
+    // };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -163,14 +160,14 @@ const DisplayPost = (props) => {
                     <CardContent>
                         <Typography className={classes.menu} variant="h4" gutterBottom>
                             {props.grabPost.title}
-                            <DeletePost sessionToken={props.sessionToken} getPostId={getPostId} handleMenuClose={handleMenuClose} handleModalOpen={handleModalOpen} handleMenuClose={handleMenuClose} setUpdateOn={setUpdateOn} anchorEl={anchorEl} setAnchorEl={setAnchorEl} getPosts={props.getPosts} grabPost={props.grabPost} setDisplayPost={props.setDisplayPost} />
+                            <DeletePost sessionToken={props.sessionToken} postId={props.postId} handleModalOpen={handleModalOpen} handleMenuClose={handleMenuClose} setUpdateOn={setUpdateOn} anchorEl={anchorEl} setAnchorEl={setAnchorEl} getPosts={props.getPosts} grabPost={props.grabPost} setDisplayPost={props.setDisplayPost} />
                         </Typography>
                         <hr style={{ backgroundColor: 'white' }} />
                         <Typography variant="body2">
                             {props.grabPost.content}
                         </Typography>
                         {
-                            props.grabPost.code !== null ? (
+                            props.grabPost.code !== 'null' ? (
                                 <div className={classes.spacing}>
                                     <CopyBlock language='javascript' text={props.grabPost.code} theme={obsidian} wrapLines={true} />
                                 </div>
@@ -178,7 +175,7 @@ const DisplayPost = (props) => {
                         }
                     </CardContent>
                     <div className={classes.spacer}>
-                        <div className={classes.icons}>
+                        {/* <div className={classes.icons}>
                             <form id="form" onSubmit={handleUpvoteSubmit}>
                                 <button id="testbutton" type='submit' onClick={() => setGetUpvoteCount(getUpvoteCount - 1)}>
                                     <DownvoteIcon />
@@ -190,7 +187,7 @@ const DisplayPost = (props) => {
                                     <UpvoteIcon />
                                 </button>
                             </form>
-                        </div>
+                        </div> */}
                         <Typography className={classes.postedBy} component="p">
                             {`Posted by ${props.grabPost.user_username}`}
                         </Typography>
@@ -203,10 +200,10 @@ const DisplayPost = (props) => {
             <div>
                 {
                     updateOn ? (
-                        <UpdatePost sessionToken={props.sessionToken} postToUpdate={postToUpdate} openModal={openModal} handleModalClose={handleModalClose} getPostId={getPostId} getPosts={props.getPosts} handleMenuClose={handleMenuClose} setDisplayPost={props.setDisplayPost} />
+                        <UpdatePost sessionToken={props.sessionToken} postToUpdate={postToUpdate} openModal={openModal} handleModalClose={handleModalClose} postId={props.postId} getPosts={props.getPosts} handleMenuClose={handleMenuClose} setDisplayPost={props.setDisplayPost} />
                     ) : null
                 }
-                <Comments grabPost={props.grabPost} sessionToken={props.sessionToken} currentUser={props.currentUser} />
+                <Comments grabPost={props.grabPost} sessionToken={props.sessionToken} currentUser={props.currentUser} postId={props.postId} />
             </div>
         </Animated>
     )

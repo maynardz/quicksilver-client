@@ -4,17 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
 
-import APIURL from '../../../../../../helpers/enviroment';
+import APIURL from '../../../../../../../helpers/enviroment';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -63,28 +59,21 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const UpdatePost = (props) => {
-    console.log(props);
+const UpdateComment = (props) => {
     const classes = useStyles();
 
-    const [editLanguage, setEditLanguage] = useState(props.postToUpdate.language);
-    const [editTitle, setEditTitle] = useState(props.postToUpdate.title);
-    const [editContent, setEditContent] = useState(props.postToUpdate.content);
-    const [editCode, setEditCode] = useState(props.postToUpdate.code);
+    const [editContent, setEditContent] = useState(props.commentToUpdate.content);
+    const [editCode, setEditCode] = useState(props.commentToUpdate.code);
 
-    console.log(editLanguage, editTitle, editContent)
-
-    const updatePost = (e) => {
+    const updateComment = (e) => {
         // console.log(e)
         e.preventDefault();
-        fetch(`${APIURL}/posts/post/${props.getPostId}`, {
+        fetch(`${APIURL}/comments/comment/${props.commentToUpdate.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 post: {
-                    title: editTitle,
                     content: editContent,
-                    code: editCode,
-                    language: editLanguage
+                    code: editCode
                 }
             }),
             headers: {
@@ -94,16 +83,11 @@ const UpdatePost = (props) => {
         })
             .then(res => res.json())
             .then(
-                props.getPosts(),
+                props.getComments(),
                 props.handleModalClose(),
                 props.handleMenuClose(),
-                props.setDisplayPost(false)
             )
             .catch(err => alert(err))
-    };
-
-    const handleChange = (event) => {
-        setEditLanguage(event.target.value)
     };
 
     return (
@@ -122,32 +106,14 @@ const UpdatePost = (props) => {
             <Fade in={props.openModal}>
                 <div className={classes.paper}>
                     <div>
-                        <form onSubmit={updatePost}>
+                        <form onSubmit={updateComment}>
                             <Card className={classes.card}>
                                 <CardContent>
-                                    <Typography>
-                                        <FormControl className={classes.formControl}>
-                                            <InputLabel id="select-language">Language</InputLabel>
-                                            <Select
-                                                labelId="select-language"
-                                                id="select-language"
-                                                value={editLanguage}
-                                                onChange={handleChange}
-                                            >
-                                                <MenuItem value={'JavaScript'}>JavaScript</MenuItem>
-                                                <MenuItem value={'.Net'}>.Net</MenuItem>
-                                                <MenuItem value={'Python'}>Python</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Typography>
-                                    <Typography>
-                                        <input className={classes.titleTextField} id='titleInput' type="text" placeholder="Title" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
-                                    </Typography>
                                     <Typography>
                                         <textarea className={classes.contentTextField} id='contentInput' type="text" placeholder="Text (optional)" value={editContent} onChange={(e) => setEditContent(e.target.value)} />
                                     </Typography>
                                     <Typography>
-                                        <textarea id='contentInput' type="text" multiline={true} className={classes.contentTextField} value={editCode} placeholder="Code snippet (optional)" onChange={(e) => setEditCode(e.target.value)} />
+                                        <textarea id='contentInput' type="text" multiline={true} className={classes.contentTextField} placeholder="Code snippet (optional)" value={editCode} onChange={(e) => setEditCode(e.target.value)} />
                                     </Typography>
                                 </CardContent>
                                 <div className={classes.spacer}>
@@ -167,4 +133,4 @@ const UpdatePost = (props) => {
     )
 }
 
-export default UpdatePost
+export default UpdateComment;
