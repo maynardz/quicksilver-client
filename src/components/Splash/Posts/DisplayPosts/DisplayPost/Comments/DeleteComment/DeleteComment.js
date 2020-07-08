@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Divider from '@material-ui/core/Divider';
+import UpdateIcon from '@material-ui/icons/Update';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import Chip from '@material-ui/core/Chip';
 
 import APIURL from '../../../../../../../helpers/enviroment';
 
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DeleteComment = (props) => {
-    console.log(props);
+    // console.log(props);
     const classes = useStyles();
 
     const deleteComment = (commentId) => {
@@ -34,11 +35,26 @@ const DeleteComment = (props) => {
 
     return (
         <div>
-            <MoreVertIcon onClick={(e) => {
-                console.log(props.commentId)
-                props.toggleUpdateDeleteIcon(e)
-            }} className={classes.vertIcon} />
-            <Menu
+            {
+                props.userId === localStorage.getItem('userID') ? (
+                    props.buttonToggle !== true ? (
+                        <MoreVertIcon onClick={(e) => {
+                            console.log(props.commentId)
+                            props.setButtonToggle(true);
+                        }} className={classes.vertIcon} />
+                    ) : (
+                        <div>
+                            <UpdateIcon onClick={() => {
+                                props.handleModalOpen();
+                                props.setUpdateOn(true);
+                                props.editCommentToUpdate(props.comment);
+                            }} />
+                            <DeleteIcon onClick={() => deleteComment(props.commentId)}/>
+                        </div>
+                    )
+                ) : null
+            }
+            {/* <Menu
                 id="simple-menu"
                 anchorEl={props.upDelAnchorEl}
                 keepMounted
@@ -54,7 +70,7 @@ const DeleteComment = (props) => {
                     deleteComment(props.commentId);
                     props.handleMenuClose();
                 }}>Delete</MenuItem>
-            </Menu>
+            </Menu> */}
         </div>
     )
 }

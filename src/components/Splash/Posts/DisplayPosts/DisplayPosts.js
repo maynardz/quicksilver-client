@@ -62,7 +62,7 @@ const DisplayPosts = (props) => {
     const postToggle = () => {
         return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} currentUser={props.currentUser} postId={postId} /> : (
             props.posts.map((post, index) => {
-                console.log(post);
+                // console.log(post);
                 let postId = post.post_id;
                 let date = post.created_at;
                 let day = date.slice(8, 10);

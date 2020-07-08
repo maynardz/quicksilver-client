@@ -84,8 +84,9 @@ const Comments = (props) => {
     const [updateOn, setUpdateOn] = useState(false);
     const [openModal, setOpenModal] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [upDelAnchorEl, setUpDelAnchorEl] = React.useState(null);
     const [alert, setAlert] = useState(false);
+    const [buttonToggle, setButtonToggle] = useState(false);
+
 
     useEffect(() => {
         getComments();
@@ -105,36 +106,12 @@ const Comments = (props) => {
         }, 500);
     };
 
-    // const deleteComment = (commentId) => {
-    //     console.log(commentId);
-    //     fetch(`${APIURL}/comments/comment/${commentId}`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': props.sessionToken
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(json => console.log(json))
-    //         .then(getComments())
-    //         .catch(err => console.log(err))
-    // };
-
     const handlePopoverOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handlePopoverClose = () => {
         setAnchorEl(null);
-    };
-
-    const toggleUpdateDeleteIcon = (event) => {
-        console.log(event.currentTarget)
-        setUpDelAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setUpDelAnchorEl(null);
     };
 
     const handleModalOpen = () => {
@@ -252,6 +229,7 @@ const Comments = (props) => {
             {
                 moreToggle ? (
                     comments.map((comment) => {
+                        // console.log(comment)
                         return (
                             <List key={comment.id} className={classes.root}>
                                 <ListItem alignItems="flex-start">
@@ -282,11 +260,11 @@ const Comments = (props) => {
                                     />
                                 </ListItem>
                                 <div>
-                                    <DeleteComment sessionToken={props.sessionToken} commentId={comment.id} getComments={getComments} toggleUpdateDeleteIcon={toggleUpdateDeleteIcon} upDelAnchorEl={upDelAnchorEl} handleMenuClose={handleMenuClose} />
+                                    <DeleteComment sessionToken={props.sessionToken} commentId={comment.id} getComments={getComments} userId={comment.user_id} handleModalOpen={handleModalOpen} editCommentToUpdate={editCommentToUpdate} setUpdateOn={setUpdateOn} comment={comment} buttonToggle={buttonToggle} setButtonToggle={setButtonToggle} />
                                 </div>
                                 {
                                     updateOn ? (
-                                        <UpdateComment sessionToken={props.sessionToken} openModal={openModal} handleModalClose={handleModalClose} commentToUpdate={commentToUpdate} getComments={getComments} handleMenuClose={handleMenuClose} />
+                                        <UpdateComment sessionToken={props.sessionToken} openModal={openModal} handleModalClose={handleModalClose} commentToUpdate={commentToUpdate} getComments={getComments} userId={comment.user_id} commentId={comment.id} setButtonToggle={setButtonToggle} />
                                     ) : null
                                 }
                             </List>

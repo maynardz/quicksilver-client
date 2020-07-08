@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UpdateComment = (props) => {
+    console.log(props);
     const classes = useStyles();
 
     const [editContent, setEditContent] = useState(props.commentToUpdate.content);
@@ -85,7 +86,7 @@ const UpdateComment = (props) => {
             .then(
                 props.getComments(),
                 props.handleModalClose(),
-                props.handleMenuClose(),
+                props.setButtonToggle(false)
             )
             .catch(err => alert(err))
     };

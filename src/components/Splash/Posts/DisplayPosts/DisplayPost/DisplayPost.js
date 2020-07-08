@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DisplayPost = (props) => {
-    console.log(props)
+    // console.log(props);
     const classes = useStyles();
 
     // const [getUpvoteCount, setGetUpvoteCount] = useState(0);
