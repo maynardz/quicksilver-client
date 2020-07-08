@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Posts.css';
 
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Switch
+} from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Animated } from "react-animated-css";
@@ -58,13 +65,21 @@ const Posts = (props) => {
     return (
         <div>
             {
-                createPostToggle ? <CreatePost sessionToken={props.sessionToken} getPosts={getPosts} setCreatePostToggle={setCreatePostToggle} /> : (
-                    <div className={classes.align}>
-                        <Animated animationIn='slideInLeft'>
-                            <input id="postInput" className={classes.textField} onClick={() => setCreatePostToggle(true)} placeholder="Create Post" />
-                        </Animated>
-                    </div>
-                )
+                createPostToggle ? (
+                    <Switch>
+                        <Route path='/create/post'>
+                            <CreatePost sessionToken={props.sessionToken} getPosts={getPosts} setCreatePostToggle={setCreatePostToggle} />
+                        </Route>
+                    </Switch>
+                ) : (
+                        <div className={classes.align}>
+                            <Link to='/create/post'>
+                                <Animated animationIn='slideInLeft'>
+                                    <input id="postInput" className={classes.textField} onClick={() => setCreatePostToggle(true)} placeholder="Create Post" />
+                                </Animated>
+                            </Link>
+                        </div>
+                    )
             }
             {
                 createPostToggle ? null : <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} currentUser={props.currentUser} />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Auth.css';
-import quicksilver_logo_2 from '../../assets/quicksilver_logo_2.png';
+import quicksilver_logo_2 from '../../../assets/quicksilver_logo_2.png';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -14,7 +14,7 @@ import { Animated } from "react-animated-css";
 import Signup from './Signup/Signup';
 import Login from './Login/Login';
 
-import APIURL from '../../helpers/enviroment';
+import APIURL from '../../../helpers/enviroment';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 300,
         minHeight: 812,
         maxHeight: 812,
-        // padding: '2em',
         backgroundColor: '#333',
         margin: '0 auto',
         WebkitBoxShadow: '0px 35px 50px 0px rgba(0,0,0,0.75)',
@@ -38,16 +37,11 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         minWidth: 300,
         minHeight: 812,
-        // background: 'rgb(255, 255, 255)',
         background: 'linear-gradient(245deg, rgba(255,255,255,1) 0%, rgba(209,209,209,1) 100%)',
     },
     middle: {
         display: 'table-cell',
         verticalAlign: 'middle'
-    },
-    inner: {
-        // marginLeft: 'auto',
-        // marginRight: 'auto',
     },
     logo: {
         height: '175px',
@@ -111,6 +105,7 @@ const Auth = (props) => {
             .then(json => {
                 console.log(json)
                 props.updateLocalStorage(json.sessionToken, json.user.username, json.user.id);
+                props.setLoginToggle(false);
             })
             .catch(err => alert('Incorrect Password'))
     }
@@ -118,7 +113,7 @@ const Auth = (props) => {
     return (
         <div id="centered" className={classes.outer}>
             <div className={classes.middle}>
-                <div className={classes.inner}>
+                <div>
                     <form onSubmit={handleSubmit}>
                         <Animated animationIn='zoomInDown' animationInDuration={2800}>
                             <Card id="card" className={classes.card}>

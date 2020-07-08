@@ -1,6 +1,10 @@
 import React from 'react';
 import './Navbar.css';
 
+import {
+    Link,
+} from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,28 +15,35 @@ import { Animated } from "react-animated-css";
 
 const useStyles = makeStyles({
     root: {
-      flexGrow: 1,
-      backgroundColor: '#333'
+        flexGrow: 1,
+        backgroundColor: '#333'
     },
     title: {
-      flexGrow: 1,
-      fontFamily: 'quicksilver',
-      fontSize: '28px'
+        flexGrow: 1,
+        fontFamily: 'quicksilver',
+        fontSize: '28px'
     }
 });
 
 const Navbar = (props) => {
     const classes = useStyles();
 
-    return(
+    return (
         <Animated animationIn="fadeInDown">
             <AppBar position="static" className={classes.root}>
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         quicksilver
                     </Typography>
-                    {/* <Button onClick={props.toggleDrawer('right', true)} id="topPostsButton">Top Posts</Button> */}
-                    <Button id="logoutButton" color="inherit" onClick={props.clearLocalStorage}>Logout</Button>
+                    {
+                        props.sessionToken === undefined ? (
+                            <Link to='/auth'>
+                                <Button id="topPostsButton" onClick={() => props.setLoginToggle(true)}>Login</Button>
+                            </Link>
+                        ) : (
+                                <Button id="logoutButton" color="inherit" onClick={props.clearLocalStorage}>Logout</Button>
+                            )
+                    }
                 </Toolbar>
             </AppBar>
         </Animated>

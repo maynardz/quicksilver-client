@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Switch
+} from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -60,36 +67,42 @@ const DisplayPosts = (props) => {
     // };
 
     const postToggle = () => {
-        return displayPost ? <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} currentUser={props.currentUser} postId={postId} /> : (
-            props.posts.map((post, index) => {
-                // console.log(post);
-                let postId = post.post_id;
-                let date = post.created_at;
-                let day = date.slice(8, 10);
-                let month = date.slice(5, 7);
-                let year = date.slice(0, 4);
-                let full = `${month}-${day}-${year}`;
-                return (
-                    <Animated key={index} animationIn='slideInLeft'>
-                        <div onClick={() => setDisplayPost(true)} >
-                            <Paper onClick={() => {setGrabPost(post); setPostId(postId)}} className={classes.root}>
-                                <Typography className={classes.content} component="p">
-                                    {post.title}
-                                </Typography>
-                                <div className={classes.flex}>
-                                    <Typography className={classes.postedBy} component="p">
-                                        {`Posted by ${post.user_username} on ${full}`}
-                                    </Typography>
-                                    <Typography className={classes.postedBy}>
-                                        {post.language}
-                                    </Typography>
-                                </div>
-                            </Paper>
-                        </div>
-                    </Animated>
-                )
-            })
-        )
+        return displayPost ? (
+            <Route path={`/post=${postId}`}>
+                <DisplayPost setDisplayPost={setDisplayPost} grabPost={grabPost} sessionToken={props.sessionToken} getPosts={props.getPosts} currentUser={props.currentUser} postId={postId} />
+            </Route>
+        ) : (
+                props.posts.map((post, index) => {
+                    // console.log(post);
+                    let postId = post.post_id;
+                    let date = post.created_at;
+                    let day = date.slice(8, 10);
+                    let month = date.slice(5, 7);
+                    let year = date.slice(0, 4);
+                    let full = `${month}-${day}-${year}`;
+                    return (
+                        <Animated key={index} animationIn='slideInLeft'>
+                            <div onClick={() => setDisplayPost(true)} >
+                                <Link to={`/post=${postId}`}>
+                                    <Paper onClick={() => { setGrabPost(post); setPostId(postId) }} className={classes.root}>
+                                        <Typography className={classes.content} component="p">
+                                            {post.title}
+                                        </Typography>
+                                        <div className={classes.flex}>
+                                            <Typography className={classes.postedBy} component="p">
+                                                {`Posted by ${post.user_username} on ${full}`}
+                                            </Typography>
+                                            <Typography className={classes.postedBy}>
+                                                {post.language}
+                                            </Typography>
+                                        </div>
+                                    </Paper>
+                                </Link>
+                            </div>
+                        </Animated>
+                    )
+                })
+            )
     }
 
     return (
