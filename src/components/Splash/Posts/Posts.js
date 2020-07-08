@@ -5,7 +5,8 @@ import {
     BrowserRouter as Router,
     Route,
     Link,
-    Switch
+    Switch,
+    Redirect
 } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,12 +45,6 @@ const Posts = (props) => {
 
     useEffect(() => {
         getPosts();
-
-        console.log(window.location)
-
-        return function cleanup() {
-            console.log(window.location)
-        }
     }, []);
 
     const getPosts = () => {
@@ -81,7 +76,11 @@ const Posts = (props) => {
                         <div className={classes.align}>
                             <Animated animationIn='slideInLeft'>
                                 <Link to='/create/post'>
-                                    <input id="postInput" className={classes.textField} onClick={() => setCreatePostToggle(true)} placeholder="Create Post" />
+                                    <input id="postInput" className={classes.textField} onClick={() => {
+                                        props.sessionToken === undefined ? (
+                                            alert('please login or signup to continue')
+                                        ) : setCreatePostToggle(true)
+                                    }} placeholder="Create Post" />
                                 </Link>
                             </Animated>
                         </div>

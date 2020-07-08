@@ -116,7 +116,12 @@ const DisplayPost = (props) => {
         // setGetUpvoteCount(upvoteCount);
         let postToUpd = props.grabPost;
         setPostToUpdate(postToUpd);
-        console.log(postToUpd);
+
+        let location = window.location.href;
+
+        return function cleanup() {
+            return window.location.href !== location ? props.setDisplayPost(false) : null
+        }
     }, []);
 
     // const upvote = () => {

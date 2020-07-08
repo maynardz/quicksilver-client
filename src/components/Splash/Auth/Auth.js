@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Auth.css';
 import quicksilver_logo_2 from '../../../assets/quicksilver_logo_2.png';
 
@@ -69,6 +69,15 @@ const Auth = (props) => {
     const [login, setLogin] = useState(true);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+
+        let location = window.location.href;
+
+        return function cleanup() {
+            return window.location.href !== location ? props.setLoginToggle(false) : null
+        }
+    }, []);
 
     const formToggle = () => {
         setLogin(!login);

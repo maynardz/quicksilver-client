@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Splash.css';
 
 import { Row, Col } from 'reactstrap';
@@ -14,7 +14,7 @@ const Splash = (props) => {
             <div className='no-gutters'>
                 <Row>
                     <Col md="12">
-                        <Posts sessionToken={props.sessionToken} currentUser={props.currentUser} />
+                        <Posts sessionToken={props.sessionToken} currentUser={props.currentUser} updateLocalStorage={props.updateLocalStorage} setLoginToggle={props.setLoginToggle} />
                     </Col>
                 </Row>
             </div>
