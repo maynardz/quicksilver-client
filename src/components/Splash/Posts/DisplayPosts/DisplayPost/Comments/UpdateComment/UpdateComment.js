@@ -89,6 +89,7 @@ const UpdateComment = (props) => {
                 props.setButtonToggle(false)
             )
             .catch(err => alert(err))
+            
     };
 
     return (
