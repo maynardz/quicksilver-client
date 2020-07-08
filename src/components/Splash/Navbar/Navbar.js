@@ -33,7 +33,9 @@ const Navbar = (props) => {
             <AppBar position="static" className={classes.root}>
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
-                        quicksilver
+                        <Link to='/'>
+                            quicksilver
+                        </Link>
                     </Typography>
                     {
                         props.sessionToken === undefined ? (

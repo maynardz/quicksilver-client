@@ -48,13 +48,15 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Router>
+    <Router>
+      <div className="App">
         {
           loginToggle !== true ? (
-            <Route path='/'>
-              <Splash clearLocalStorage={clearLocalStorage} sessionToken={sessionToken} currentUser={currentUser} updateLocalStorage={updateLocalStorage} setLoginToggle={setLoginToggle} />
-            </Route>
+            <Switch>
+              <Route path='/'>
+                <Splash clearLocalStorage={clearLocalStorage} sessionToken={sessionToken} currentUser={currentUser} updateLocalStorage={updateLocalStorage} setLoginToggle={setLoginToggle} />
+              </Route>
+            </Switch>
           ) : (
               <Switch>
                 <Route path='/auth'>
@@ -63,8 +65,8 @@ function App() {
               </Switch>
             )
         }
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 

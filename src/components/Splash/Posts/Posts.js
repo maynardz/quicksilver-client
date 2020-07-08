@@ -44,6 +44,12 @@ const Posts = (props) => {
 
     useEffect(() => {
         getPosts();
+
+        console.log(window.location)
+
+        return function cleanup() {
+            console.log(window.location)
+        }
     }, []);
 
     const getPosts = () => {
@@ -52,7 +58,7 @@ const Posts = (props) => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': props.sessionToken
+                    // 'Authorization': props.sessionToken
                 }
             })
                 .then(res => res.json())
@@ -67,22 +73,24 @@ const Posts = (props) => {
             {
                 createPostToggle ? (
                     <Switch>
-                        <Route path='/create/post'>
+                        <Route exact path='/create/post'>
                             <CreatePost sessionToken={props.sessionToken} getPosts={getPosts} setCreatePostToggle={setCreatePostToggle} />
                         </Route>
                     </Switch>
                 ) : (
                         <div className={classes.align}>
-                            <Link to='/create/post'>
-                                <Animated animationIn='slideInLeft'>
+                            <Animated animationIn='slideInLeft'>
+                                <Link to='/create/post'>
                                     <input id="postInput" className={classes.textField} onClick={() => setCreatePostToggle(true)} placeholder="Create Post" />
-                                </Animated>
-                            </Link>
+                                </Link>
+                            </Animated>
                         </div>
                     )
             }
             {
-                createPostToggle ? null : <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} currentUser={props.currentUser} />
+                createPostToggle ? null : (
+                    <DisplayPosts sessionToken={props.sessionToken} posts={posts} getPosts={getPosts} currentUser={props.currentUser} />
+                )
             }
         </div>
     )

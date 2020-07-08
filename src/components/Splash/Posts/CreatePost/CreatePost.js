@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './CreatePost.css';
 
@@ -72,6 +72,15 @@ const CreatePost = (props) => {
     const [code, setCode] = useState(null);
     const [upvote, setUpvote] = useState(0);
     const [language, setLanguage] = useState('');
+
+    useEffect(() => {
+
+        let location = window.location.href;
+
+        return function cleanup() {
+            return window.location.href !== location ? props.setCreatePostToggle(false) : null
+        }
+    }, []);
 
     const postPost = (e) => {
         e.preventDefault();
