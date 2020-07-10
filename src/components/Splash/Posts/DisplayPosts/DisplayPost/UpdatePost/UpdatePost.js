@@ -141,7 +141,7 @@ const UpdatePost = (props) => {
                                         </FormControl>
                                     </Typography>
                                     <Typography>
-                                        <input className={classes.titleTextField} id='titleInput' type="text" placeholder="Title" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
+                                        <textarea className={classes.titleTextField} id='titleInput' type="text" placeholder="Title" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
                                     </Typography>
                                     <Typography>
                                         <textarea className={classes.contentTextField} id='contentInput' type="text" placeholder="Text (optional)" value={editContent} onChange={(e) => setEditContent(e.target.value)} />
