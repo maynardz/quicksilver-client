@@ -73,18 +73,25 @@ const Posts = (props) => {
                         </Route>
                     </Switch>
                 ) : (
-                        <div className={classes.align}>
-                            <Animated animationIn='slideInLeft'>
-                                <Link to='/create/post'>
-                                    <button id="postInput" className={classes.textField} onClick={() => {
-                                        props.sessionToken === undefined ? (
-                                            alert('please login or signup to create a post')
-                                        ) : setCreatePostToggle(true)
-                                    }}> Create Post
+                        createPostToggle === false ? (
+                            <Switch>
+                                <Redirect from='/create/post' to='/' />
+                                <Route path='/'>
+                                    <div className={classes.align}>
+                                        <Animated animationIn='slideInLeft'>
+                                            <Link to='/create/post'>
+                                                <button id="postInput" className={classes.textField} onClick={() => {
+                                                    props.sessionToken === undefined ? (
+                                                        alert('please login or signup to create a post')
+                                                    ) : setCreatePostToggle(true)
+                                                }}> Create Post
                                     </button>
-                                </Link>
-                            </Animated>
-                        </div>
+                                            </Link>
+                                        </Animated>
+                                    </div>
+                                </Route>
+                            </Switch>
+                        ) : null
                     )
             }
             {

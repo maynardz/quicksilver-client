@@ -124,28 +124,6 @@ const DisplayPost = (props) => {
         }
     }, []);
 
-    // const upvote = () => {
-    //     fetch(`${APIURL}/posts/post/${getPostId}`, {
-    //         method: 'PUT',
-    //         body: JSON.stringify({
-    //             post: {
-    //                 upvote: getUpvoteCount
-    //             }
-    //         }),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': props.sessionToken
-    //         }
-    //     })
-    //         .then(props.getPosts())
-    //         .catch(err => console.log(err))
-    // };
-
-    // const handleUpvoteSubmit = (event) => {
-    //     event.preventDefault();
-    //     upvote();
-    // };
-
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
@@ -180,19 +158,6 @@ const DisplayPost = (props) => {
                         }
                     </CardContent>
                     <div className={classes.spacer}>
-                        {/* <div className={classes.icons}>
-                            <form id="form" onSubmit={handleUpvoteSubmit}>
-                                <button id="testbutton" type='submit' onClick={() => setGetUpvoteCount(getUpvoteCount - 1)}>
-                                    <DownvoteIcon />
-                                </button>
-                            </form>
-                            {getUpvoteCount}
-                            <form id="form" onSubmit={handleUpvoteSubmit}>
-                                <button id="testbutton" type='submit' onClick={() => setGetUpvoteCount(getUpvoteCount + 1)}>
-                                    <UpvoteIcon />
-                                </button>
-                            </form>
-                        </div> */}
                         <Typography className={classes.postedBy} component="p">
                             {`Posted by ${props.grabPost.user_username}`}
                         </Typography>
