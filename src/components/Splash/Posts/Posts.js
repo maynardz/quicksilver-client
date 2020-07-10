@@ -76,11 +76,12 @@ const Posts = (props) => {
                         <div className={classes.align}>
                             <Animated animationIn='slideInLeft'>
                                 <Link to='/create/post'>
-                                    <input id="postInput" className={classes.textField} onClick={() => {
+                                    <button id="postInput" className={classes.textField} onClick={() => {
                                         props.sessionToken === undefined ? (
-                                            alert('please login or signup to continue')
+                                            alert('please login or signup to create a post')
                                         ) : setCreatePostToggle(true)
-                                    }} placeholder="Create Post" />
+                                    }}> Create Post
+                                    </button>
                                 </Link>
                             </Animated>
                         </div>

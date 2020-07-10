@@ -84,7 +84,7 @@ const PostComment = props => {
         })
             .then(res => res.json())
             .then(json => {
-                props.setAlert(true);
+                props.setCommentAlert(true);
                 setContent('')
                 props.setPostCommentToggle(false);
                 props.getComments();

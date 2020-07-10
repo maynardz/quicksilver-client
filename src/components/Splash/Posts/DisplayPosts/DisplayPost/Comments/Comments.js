@@ -84,7 +84,7 @@ const Comments = (props) => {
     const [updateOn, setUpdateOn] = useState(false);
     const [openModal, setOpenModal] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [alert, setAlert] = useState(false);
+    const [commentAlert, setCommentAlert] = useState(false);
     const [buttonToggle, setButtonToggle] = useState(false);
 
 
@@ -128,12 +128,12 @@ const Comments = (props) => {
     };
 
     const timeout = () => {
-        if (alert === true) {
+        if (commentAlert === true) {
             setTimeout(() => {
-                setAlert(false)
+                setCommentAlert(false)
             }, 3000);
             return (
-                <Alert className={classes.alert} onClose={() => setAlert(false)}>Comment posted!</Alert>
+                <Alert className={classes.alert} onClose={() => setCommentAlert(false)}>Comment posted!</Alert>
             )
         } else {
             return;
@@ -146,7 +146,7 @@ const Comments = (props) => {
         <div>
             <div>
                 {
-                    postCommentToggle ? <PostComment setPostCommentToggle={setPostCommentToggle} sessionToken={props.sessionToken} grabPost={props.grabPost} currentUser={props.currentUser} getComments={getComments} setAlert={setAlert} /> : null
+                    postCommentToggle ? <PostComment setPostCommentToggle={setPostCommentToggle} sessionToken={props.sessionToken} grabPost={props.grabPost} currentUser={props.currentUser} getComments={getComments} setCommentAlert={setCommentAlert} /> : null
                 }
                 {
                     moreToggle === false ? (
@@ -186,8 +186,12 @@ const Comments = (props) => {
                                 ) : null
                             }
                             <ChatBubbleIcon className={classes.icons} onClick={() => {
-                                setPostCommentToggle(true);
-                                setMoreToggle(true)
+                                if (props.sessionToken === undefined) {
+                                    alert('please login or signup to comment')
+                                } else {
+                                    setPostCommentToggle(true);
+                                    setMoreToggle(true)
+                                }
                             }} />
                         </div>
                     ) : moreToggle ? (
@@ -200,8 +204,12 @@ const Comments = (props) => {
                                 className={classes.icons}
                                 onClick={() => setMoreToggle(false)} />
                             <ChatBubbleIcon className={classes.icons} onClick={() => {
-                                setPostCommentToggle(true);
-                                setMoreToggle(true);
+                                if (props.sessionToken === undefined) {
+                                    alert('please login or signup to comment')
+                                } else {
+                                    setPostCommentToggle(true);
+                                    setMoreToggle(true)
+                                }
                             }} />
                             <Popover
                                 id="mouse-over-popover"
